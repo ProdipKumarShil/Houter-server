@@ -10,6 +10,7 @@ app.use(express.json())
 
 // routes
 const userRoute = require('./routes/user')
+const houseRoute = require('./routes/house')
 
 mongoose.connect('mongodb://localhost:27017/houseDB')
   .then(() => console.log("DB connected"))
@@ -21,7 +22,8 @@ app.get('/', (req, res) => {
 
 // api routes
 app.use('/user', userRoute)
-  
+app.use('/house', houseRoute)
+
 app.listen(PORT, () => {
   console.log("Houter is running on", PORT)
 })
