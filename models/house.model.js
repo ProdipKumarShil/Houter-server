@@ -2,15 +2,17 @@ const mongoose = require('mongoose');
 
 const houseSchema = new mongoose.Schema({
   name: String,
-  address: Number,
-  bathroom: Number,
-  bedroom: Number,
+  price: Number,
+  address: String,
+  bathroom: String,
+  bedroom: String,
   city: String,
-  date: Date,
+  availableDate: Date,
   description: String,
   img: Array,
   number: Number,
-  roomSize: Number
+  roomSize: Number,
+  user: Object
 })
 
 module.exports = mongoose.model('House', houseSchema)
