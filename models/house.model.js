@@ -9,7 +9,7 @@ const houseSchema = new mongoose.Schema({
   city: String,
   availableDate: Date,
   description: String,
-  img: Array,
+  images: Array,
   number: Number,
   roomSize: Number,
   user: Object
