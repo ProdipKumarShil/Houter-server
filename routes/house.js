@@ -57,4 +57,33 @@ router.get('/house/:id', async(req, res) => {
   }
 })
 
+router.get('/houseByEmail/:email', async(req, res) => {
+  try {
+    const email = req.params.email
+    const eHouse = await House.find({'user.email': email})
+    if(eHouse.length == 0){
+      res.status(404).send({status: false, message: "House or email not found!"})
+    } else {
+      res.status(201).send(eHouse)
+    }
+    
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+})
+
+router.delete('/deleteHouse/:id', async(req, res) => {
+  try {
+    const id = req.params.id
+    const deleteHouse = await House.findByIdAndDelete(id)
+    if(deleteHouse){
+      res.status(201).send({status: true, message: 'House deleted successfully'})
+    } else {
+      res.status(500).send({status: false, message: 'Failed to delete house'})
+    }
+  } catch (error) {
+    res.status(500).send({status: false, message: 'Something went wrong'})
+  }
+})
+
 module.exports = router
