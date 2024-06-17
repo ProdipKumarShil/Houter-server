@@ -101,10 +101,26 @@ router.post('/bookedHouse', async (req, res) => {
 router.get('/bookingData/:email', async (req, res) => {
   try {
     const userEmail = req.params.email
-    const allBooking = await Booking.find({email: userEmail})
+    const allBooking = await Booking.find({ email: userEmail })
     res.status(201).send(allBooking)
   } catch (error) {
-    res.send(500).send({status: true, message: 'Something went wrong!'})
+    res.send(500).send({ status: false, message: 'Something went wrong!' })
+  }
+})
+
+router.delete('/deleteBookedHouse', async (req, res) => {
+  try {
+    const data = req.query
+    const result = await Booking.deleteOne({ _id: data?.id, email: data?.email })
+    console.log(data)
+    console.log(result)
+    if (result.deletedCount == 1) {
+      res.status(201).send({ status: true, message: 'Booking remove successfully' })
+    } else {
+      res.status(500).send({ status: false, message: 'Failed to delete Booking house' })
+    }
+  } catch {
+    res.send(500).send({ status: false, message: 'Something went wrong!' })
   }
 })
 
